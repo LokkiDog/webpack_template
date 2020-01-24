@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  
+  <title>Webpack</title>
+</head>
+<body>
+  
+  <div id="app">
+
+    <header></header>
+
+    <div class="wrapper">
+
+      <section id="main">
+          <h1>Webpack</h1> 
+          <h2>Section example 2</h2>  
+          <button @click="component = !component">Show vue component</button>
+      </section>
+
+      <example-component v-show="component"></example-component>
+    
+    </div>
+    
+    <footer></footer>
+
+  </div>
+  <!-- /.app -->
+</body>
+</html>

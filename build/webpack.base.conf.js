@@ -3,6 +3,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { VueLoaderPlugin} = require('vue-loader')
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 
 const PATHS = {
   src: path.join(__dirname, '../src'),
@@ -126,6 +127,26 @@ module.exports = {
       { from: `${PATHS.src}/${PATHS.assets}fonts`, to: `${PATHS.assets}fonts`},
       { from: `${PATHS.src}/static`, to: ''},
     ]),
-    new VueLoaderPlugin()
+    new VueLoaderPlugin(),
+    new FaviconsWebpackPlugin({
+      logo: `${PATHS.src}/static/favicon.png`,
+      outputPath: '/static/favicons',
+      cache: false,
+      prefix: 'static/favicons',
+      mode: 'webapp', // optional can be 'webapp' or 'light' - 'webapp' by default
+      devMode: 'webapp', // optional can be 'webapp' or 'light' - 'light' by default 
+      favicons: {
+        appName: 'My Site',
+        appDescription: 'My awesome App',
+        developerName: 'Alexander',
+        developerURL: null, // prevent retrieving from the nearest package.json
+        background: '#ddd',
+        theme_color: '#333',
+        icons: {
+          coast: false,
+          yandex: false
+        }
+      }
+    })
   ]
 }

@@ -4,6 +4,7 @@
 @import "utils/fonts";
 @import "utils/reset";
 
+
 html {
   line-height: $mainLineHeight;
   font-size: $mainFontSize;
@@ -104,3 +105,6 @@ section,
 
 // Modules:
 // example: @import "modules/my-module.scss";
+
+//Common
+@import "./common.scss";

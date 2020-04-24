@@ -112,16 +112,37 @@
 //   $file-path,
 //   $weight: normal,
 //   $style: normal,
+//   $font-display: swap,
 //   $asset-pipeline: false
 // ) {
 //   @font-face {
 //     font-family: $font-family;
 //     font-weight: $weight;
 //     font-style: $style;
+//     font-display: $font-display;
 //     src: url("#{$file-path}.eot?#iefix") format("embedded-opentype"),
 //       url("#{$file-path}.woff") format("woff"),
-//       url("#{$file-path}.woff2") format("woff2"),
-//       url("#{$file-path}.svg") format("svg"),
-//       url("#{$file-path}.ttf") format("truetype");
+//       url("#{$file-path}.woff2") format("woff2");
+//       // url("#{$file-path}.svg") format("svg"),
+//       // url("#{$file-path}.ttf") format("truetype");
 //   }
 // }
+
+@mixin flex($dir: row, $just: flex-start, $align: flex-start) {
+  display: flex;
+  flex-direction: $dir;
+  align-items: $align;
+  justify-content: $just;
+}
+
+@mixin link_a($color: $default-color, $hover_color: $color, $visited_color: $color) {
+  a {
+    color: $color;
+    &:visited {
+      color: $visited_color;
+    }
+    &:hover {
+      color: $hover_color;
+    }
+  }
+}

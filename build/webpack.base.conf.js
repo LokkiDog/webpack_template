@@ -5,6 +5,27 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { VueLoaderPlugin} = require('vue-loader')
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 
+const fs = require('fs')
+
+// Our function that generates our html plugins
+function generateHtmlPlugins (templateDir) {
+  // Read files in template directory
+  const templateFiles = fs.readdirSync(path.resolve(__dirname, templateDir))
+  return templateFiles.map(item => {
+    // Split names and extension
+    const parts = item.split('.')
+    const name = parts[0]
+    const extension = parts[1]
+    // Create new HTMLWebpackPlugin with options
+    return new HtmlWebpackPlugin({
+      filename: `${name}.html`,
+      template: path.resolve(__dirname, `${templateDir}/${name}.${extension}`)
+    })
+  })
+}
+// Call our function on our views directory.
+const htmlPlugins = generateHtmlPlugins('../src/template/views')
+
 const PATHS = {
   src: path.join(__dirname, '../src'),
   dist: path.join(__dirname, '../dist'),
@@ -22,7 +43,7 @@ module.exports = {
   output: {
     filename: `${PATHS.assets}js/[name].[hash].js`,
     path: PATHS.dist,
-    publicPath: '/'
+    publicPath: ''
   },
   optimization: {
     splitChunks: {
@@ -116,12 +137,12 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename:  `${PATHS.assets}css/[name].[hash].css`
     }),
-    new HtmlWebpackPlugin({
-      hash: false,
-      template: `${PATHS.src}/index.html`,
-      filename: './index.html',
-      inject: true
-    }),
+    // new HtmlWebpackPlugin({
+    //   hash: false,
+    //   template: `${PATHS.src}/index.html`,
+    //   filename: './index.html',
+    //   inject: true
+    // }),
     new CopyWebpackPlugin([
       { from: `${PATHS.src}/${PATHS.assets}img`, to: `${PATHS.assets}img`},
       { from: `${PATHS.src}/${PATHS.assets}fonts`, to: `${PATHS.assets}fonts`},
@@ -149,4 +170,5 @@ module.exports = {
       }
     })
   ]
+  .concat(htmlPlugins)
 }
